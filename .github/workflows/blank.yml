@@ -1,0 +1,25 @@
+name: ShellCheck
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  shellcheck:
+    name: Run ShellCheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+        shell: bash
+
+      - name: Run shellcheck
+        run: |
+          find . -type f -name "*.sh" -exec shellcheck {} +
